@@ -1,0 +1,26 @@
+@baseUrl = http://localhost:5000
+
+### Health
+GET {{baseUrl}}/health
+
+### List portfolios
+GET {{baseUrl}}/api/v1/portfolios
+
+### Portfolio by id
+GET {{baseUrl}}/api/v1/portfolios/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+
+### Portfolio holdings
+GET {{baseUrl}}/api/v1/portfolios/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa/holdings
+
+### Instruments
+GET {{baseUrl}}/api/v1/instruments
+
+### Submit performance calculation
+POST {{baseUrl}}/api/v1/performance-calculations
+Content-Type: application/json
+
+{
+  "portfolioId": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+  "startDate": "2025-01-01",
+  "endDate": "2025-01-10"
+}

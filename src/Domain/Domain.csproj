@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>InvestmentPerformanceAttribution.Domain</AssemblyName>
+    <RootNamespace>InvestmentPerformanceAttribution.Domain</RootNamespace>
+  </PropertyGroup>
+</Project>
