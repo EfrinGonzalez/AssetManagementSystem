@@ -1,0 +1,40 @@
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: Release
+
+stages:
+- stage: BuildAndTest
+  jobs:
+  - job: Build
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: sdk
+        version: '8.0.x'
+    - script: dotnet restore InvestmentPerformanceAttribution.sln
+      displayName: Restore
+    - script: dotnet build InvestmentPerformanceAttribution.sln --configuration $(buildConfiguration) --no-restore
+      displayName: Build
+    - script: dotnet test InvestmentPerformanceAttribution.sln --configuration $(buildConfiguration) --collect:"XPlat Code Coverage"
+      displayName: Test + Coverage
+
+- stage: Container
+  dependsOn: BuildAndTest
+  jobs:
+  - job: Docker
+    steps:
+    - task: Docker@2
+      inputs:
+        command: build
+        Dockerfile: Dockerfile
+        repository: investment-performance-attribution-api
+        tags: |
+          $(Build.BuildId)
